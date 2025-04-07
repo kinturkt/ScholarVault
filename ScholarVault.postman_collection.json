@@ -1,0 +1,1044 @@
+{
+	"info": {
+		"_postman_id": "c72735f0-52cc-4d2f-824f-582efc67d9bf",
+		"name": "ScholarVault",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33910632",
+		"_collection_link": "https://orange-shuttle-490432.postman.co/workspace/New-Team-Workspace~7cb17cf0-b6a9-402c-854d-779058ed2258/collection/33910632-c72735f0-52cc-4d2f-824f-582efc67d9bf?action=share&source=collection_link&creator=33910632"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signin",
+					"item": [
+						{
+							"name": "csrf",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/auth/csrf",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"csrf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "session",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/auth/session",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"session"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.cookies.each(cookie => console.log(cookie));\r",
+											"let csrfToken = pm.cookies.get(\"next-auth.csrf-token\");\r",
+											"// let csrfToken = pm.cookies.get(\"__Host-next-auth.csrf-token\");\r",
+											"let csrfTokenValue = csrfToken.split('|')[0];\r",
+											"let sessionTokenValue = pm.cookies.get(\"next-auth.session-token\");\r",
+											"// let sessionTokenValue = pm.cookies.get(\"__Secure-next-auth.session-token\");\r",
+											"\r",
+											"console.log('csrf token value: ', csrfTokenValue);\r",
+											"console.log('session token value: ', sessionTokenValue);\r",
+											"\r",
+											"pm.environment.set(\"csrfToken\", csrfTokenValue, \"<your-environment-name>\");\r",
+											"pm.environment.set(\"sessionToken\", sessionTokenValue, \"<your-environment-name>\");"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"csrfToken\": \"e822f888f389a56c4c29254dc8c1d6f638e5e7aaf37b27a94850eb80b5665939\",\n    \"email\": \"admin@scholarvault.com\",\n    \"password\": \"scholarvault\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/callback/credentials",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"callback",
+										"credentials"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "verify",
+					"item": [
+						{
+							"name": "sendmail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"owner.reliance@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/sendemail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"sendemail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verifymail",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/auth/verify?token=1977717daa8e368fcb9b8b26d63344a8e471bdb8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"verify"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "1977717daa8e368fcb9b8b26d63344a8e471bdb8"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "reset password",
+					"item": [
+						{
+							"name": "sendmail",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"owner.reliance@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/resetmail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"resetmail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resetpass",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\":\"e88b923af02fa07afbd32e7d7db61d8dcc47f195\",\r\n    \"newPassword\":\"Newuserpassword\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/resetpass",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"resetpass"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"owner.reliance@gmail.com\",\r\n    \"password\":\"Qwerty@1234\",\r\n    \"firstname\":\"John\",\r\n    \"lastname\":\"Doe\",\r\n    \"gender\":\"Male\",\r\n    \"dob\":\"05-05-2003\",\r\n    \"phone\":\"1234567891\",\r\n    \"address\":\"demo address for testing\",\r\n    \"profilePic\":\"https://pathforprofile.com\",\r\n    \"role\":\"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Guidelines",
+			"item": [
+				{
+					"name": "getGuidelines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/guidelines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"guidelines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_guideline",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"New guideline title\",\r\n    \"description\":\"Description for the guidleines\",\r\n    \"file_url\":\"https://exaampelepath.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/guidelines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"guidelines"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_guidelines",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"New  update title\",\r\n    \"description\":\"New updated Description\",\r\n    \"file_url\":\"https://examplepath.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/guidelines/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"guidelines",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_Guidelines",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/guidelines/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"guidelines",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "peer_review",
+			"item": [
+				{
+					"name": "getPeerReview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/peerreview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"peerreview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createPeerReview",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"tile for review\",\r\n    \"thesis_id\":\"2\",\r\n    \"review_date\":\"01-02-1990\",\r\n    \"status\":\"Pending\",\r\n    \"review\":\"review for thesis \"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/peerreview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"peerreview"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePeerReview",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"new tile for review\",\r\n    \"thesis_id\":\"2\",\r\n    \"review_date\":\"01-02-1990\",\r\n    \"status\":\"Pending\",\r\n    \"review\":\"review for thesis \"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/peerreview/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"peerreview",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePeerReview",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/peerreview/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"peerreview",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "getProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProfile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"New Firstname\",\r\n    \"lastname\": \"New Lastname\",\r\n    \"dob\": \"1990-05-20T00:00:00.000Z\",\r\n    \"gender\": \"Male\",\r\n    \"phone\": \"987-654-3210\",\r\n    \"email\": \"newadmin@example.com\",\r\n    \"joined\": \"2024-11-10T10:35:16.944Z\",\r\n    \"role\": \"admin\",\r\n    \"thesesCount\": 1,\r\n    \"downloadsCount\": 1,\r\n    \"address\": \"456 New Address St, New City\",\r\n    \"profilePic\": \"https://example.com/new-profile-pic.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "thesis",
+			"item": [
+				{
+					"name": "getThesis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/thesis",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"thesis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateThesis",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"title\": \"Neneww Research on AI in Healthcare\",\r\n        \"abstract\": \"This thesis explores the integration of AI in healthcare systems...\",\r\n        \"keywords\": [\r\n            \"ai\",\r\n            \"ml\",\r\n            \"cd\"\r\n        ],\r\n        \"status\": \"Approved\",\r\n        \"category\":\"Science\",\r\n        \"author_name\":\"john_scholar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/thesis/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"thesis",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchThesis",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"keywords\":[\"CN\"],\r\n    \"startdate\":\"\",\r\n    \"end_date\":\"\",\r\n    \"title\":\"\",\r\n    \"author_name\":\"\",\r\n    \"category\":\"\",\r\n    \"status\":\"Approved\"\r\n  \r\n}\r\n  //can send any fields",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"New user  Firstname\",\r\n        \"lastname\": \"New  user Lastname\",\r\n        \"gender\": \"Male\",\r\n        \"dob\": \"1990-05-20T00:00:00.000Z\",\r\n        \"phone\": \"987-654-3210\",\r\n        \"profilePic\": \"https://example.com/new-profile-pic.jpg\",\r\n        \"address\": \"456 New Address St, New City\",\r\n        \"email\": \"newscholar@example.com\",\r\n        \"role_name\": \"Scholar\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"updated Firstname\",\r\n        \"lastname\": \"New Lastname\",\r\n        \"gender\": \"Male\",\r\n        \"dob\": \"1990-05-20T00:00:00.000Z\",\r\n        \"phone\": \"987-654-3210\",\r\n        \"profilePic\": \"https://example.com/new-profile-pic.jpg\",\r\n        \"address\": \"456 New Address St, New City\",\r\n        \"email\": \"newuser@example.com\",\r\n        \"role_name\": \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/admin/user/18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"user",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/user/18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"user",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "adminDashboardStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dashboard/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dashboard",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "scholarDashboardStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dashboard/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dashboard",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userDashboardStats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/dashboard/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dashboard",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat",
+			"item": [
+				{
+					"name": "getUserList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/conversations/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"conversations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendMessage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"senderId\": 1,\r\n  \"receiverId\": 2,\r\n  \"message\": \"Hello, how are you man?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConversation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/conversations/1/2/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"conversations",
+								"1",
+								"2",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "markMessageRead",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/messages/2/read",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"messages",
+								"2",
+								"read"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "addDownloadCount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"thesisId\":\"1\",\r\n    \"ipAddress\":\"193.168.2.1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/misc/download",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"misc",
+						"download"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addViewCount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"thesisId\":\"1\",\r\n    \"ipAddress\":\"193.163.2.1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/misc/view",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"misc",
+						"view"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "vote",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"thesisId\":\"1\",\r\n    \"userId\":\"1\",\r\n    \"voteType\":\"DOWNVOTE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/misc/vote",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"misc",
+						"vote"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FeaturedThesis",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
