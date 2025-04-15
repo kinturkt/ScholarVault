@@ -110,7 +110,7 @@ npm run dev
 ## ☁️ Cloud Deployment
 
 The application is also deployed on the cloud for remote access.  
-📎 **[Access Live Project]([#](https://sxb3349.uta.cloud/)**
+📎 **[Access Live Project](https://sxb3349.uta.cloud/)**
 
 > Ensure the deployed environment mirrors the `.env` and database setup from the local configuration.
 
