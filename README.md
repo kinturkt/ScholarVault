@@ -18,18 +18,6 @@ ScholarVault/
 
 ---
 
-## 👥 Team Members
-
-Group 1 – University Submission  
-- Sanketh Bolishetti (1002144534)  
-- Pradeep Akula (1002140196)  
-- Soumya Reddy Bheemreddy (1002193346)  
-- Kausheel Bhagavathula (1002118457)  
-- **Kintur Ketan Shah (1002178072)**  
-- Madhupriya Bendilli (1002124302)
-
----
-
 ## 🔐 User Roles
 
 - **Admin** – Full access to all data, user management, and analytics.
@@ -135,5 +123,4 @@ This project is for educational use under the University submission guidelines.
 ---
 
 ## 📬 Contact
-
 For questions or contributions, please contact [Kintur Shah](mailto:shahkintur@gmail.com).
